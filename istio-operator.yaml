@@ -7,4 +7,12 @@ spec:
   profile: demo
   meshConfig:
     accessLogFile: /dev/stdout
-
+  components:
+    ingressGateways:
+    - name: istio-public-ingressgateway
+      namespace: istio-system
+      enabled: true
+      label:
+        # Set a unique label for the gateway. This is required to ensure Gateways
+        # can select this workload
+        istio: public-ingressgateway

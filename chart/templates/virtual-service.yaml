@@ -7,16 +7,17 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   hosts:
-    - "*"
+    - "www.case-study.internal"
   gateways:
     - {{ include "web-server.fullname" . }}
   http:
     - match:
         - uri:
-            prefix: "/web"
+            prefix: "/"
       route:
         - destination:
             host: web-server
             port:
               number: 80
+            subset: v1
 

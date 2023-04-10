@@ -7,13 +7,23 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   selector:
-    app: my-gateway-controller
+    istio: public-ingressgateway
   servers:
   - port:
       number: 80
       name: http
       protocol: HTTP
     hosts:
-    - '*'
+    - 'www.case-study.internal'
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: web-server-credential
+    hosts:
+    - 'www.case-study.internal'
+
     # tls:
     #   httpsRedirect: false
