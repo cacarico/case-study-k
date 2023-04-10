@@ -15,15 +15,3 @@ spec:
       protocol: HTTP
     hosts:
     - 'www.case-study.internal'
-  - port:
-      number: 443
-      name: https
-      protocol: HTTPS
-    tls:
-      mode: SIMPLE
-      credentialName: web-server-credential
-    hosts:
-    - 'www.case-study.internal'
-
-    # tls:
-    #   httpsRedirect: false
