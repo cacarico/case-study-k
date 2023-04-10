@@ -10,3 +10,5 @@ target/
 
 # Ansible
 .vagrant
+
+certs/

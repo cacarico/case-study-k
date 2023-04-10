@@ -1,0 +1,60 @@
+---
+  - name: Update all packages
+    package:
+      name: '*'
+      state: latest
+
+  - name: Create Apache group
+    group:
+      name: apache
+    tags: httpd
+
+  - name: Create Apache user
+    user:
+      name: apache
+      group: apache
+      shell: /sbin/nologin
+      home: /etc/httpd
+      system: true
+    tags: httpd
+
+  - name: Install Apache
+    package:
+      name: httpd
+      state: latest
+      update_cache: true
+    tags: httpd
+
+  - name: Ensure Apache has selected state and enabled on boot.
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+
+  - name: Delete files inside directory1
+    file:
+      path: "{{ item }}"
+      state: absent
+    with_items:
+      - /etc/httpd/conf
+      - /etc/httpd/conf.d
+
+  - name: Recreate directories
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+      - /etc/httpd/conf
+      - /etc/httpd/conf.d
+
+  - name: Copy httpf.conf
+    template:
+      src: httpd.conf.j2
+      dest: /etc/httpd/conf/httpd.conf
+    tags: httpd
+
+  - name: Copy webserver.conf
+    template:
+      src: webserver.conf.j2
+      dest: /etc/httpd/conf.d/webserver.conf
+    tags: httpd

@@ -6,7 +6,7 @@ import yaml
 
 
 if len(sys.argv) < 3:
-    print("Usage: python script.py [namespace] [deployment_name]")
+    print("Usage: scripts/deploy.py [namespace] [deployment_name]")
     sys.exit(1)
 
 namespace = sys.argv[1]
@@ -29,7 +29,9 @@ print(f'Chart version: {chart_version}')
 # Check if the version matches the one in the Helm chart
 if deployment_version == chart_version:
     print('The deployment is already running the latest version.')
+    #TODO remove th
+    subprocess.run(['helm', 'upgrade', deployment_name, './chart', '--namespace', namespace, '--atomic', '--install'])
 else:
     print(f'Deploying web-server version: {chart_version}')
     # Run the Helm upgrade command to deploy the new version
-    subprocess.run(['helm', 'upgrade', deployment_name, './chart', '--namespace', namespace])
+    subprocess.run(['helm', 'upgrade', deployment_name, './chart', '--namespace', namespace, '--atomic', '--install'])

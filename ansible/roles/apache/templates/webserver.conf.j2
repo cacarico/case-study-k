@@ -1,0 +1,28 @@
+<VirtualHost *:80>
+  ServerName www.case-study.internal
+
+  # Redirect all requests to HTTPS
+  RewriteEngine On
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  ErrorLog /var/log/httpd/www.case-study.internal-error.log
+  CustomLog /var/log/httpd/www.case-study.internal-access.log combined
+
+
+</VirtualHost>
+
+/* <VirtualHost *:443> */
+/*   ServerName www.case-study.internal */
+/**/
+/*   # SSL Configuration goes here */
+/*   SSLEngine on */
+/*   SSLCertificateFile /path/to/certificate/file */
+/*   SSLCertificateKeyFile /path/to/private/key/file */
+/**/
+/*   # Reverse proxy all requests to example.com */
+/*   ProxyPreserveHost On */
+/*   ProxyPass / https://www.case-study.internal/ */
+/*   ProxyPassReverse / https://www.case-study.internal */
+/**/
+/* </VirtualHost> */
+/**/
