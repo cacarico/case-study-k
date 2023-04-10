@@ -31,6 +31,7 @@ Common labels
 helm.sh/chart: {{ include "web-server.chart" . }}
 {{ include "web-server.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
+version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
@@ -40,6 +41,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "web-server.selectorLabels" -}}
+app: {{ include "web-server.name" . }}
 app.kubernetes.io/name: {{ include "web-server.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}

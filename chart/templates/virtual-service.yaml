@@ -7,7 +7,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   hosts:
-    - "www.case-study.internal"
+    - "{{ .Values.dns}}"
   gateways:
     - {{ include "web-server.fullname" . }}
   http:

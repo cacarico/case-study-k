@@ -1,6 +1,11 @@
 ---
 - hosts: all
   become: yes
-  
+  vars_files:
+    - vars/default.yml
   tasks:
     - import_tasks: tasks/main.yml
+    - import_tasks: tasks/hardening.yml
+  
+  handlers:
+    - import_tasks: handlers/main.yml

@@ -20,7 +20,7 @@
   ProxyPass / https://k8s.case-study.internal/ retry=0
   ProxyPassReverse / https://k8s.case-study.internal/
 
-  RequestHeader set Host "www.case-study.internal"
+  RequestHeader set Host "k8s.case-study.internal"
   RequestHeader set X-Forwarded-For %{REMOTE_ADDR}s
   RequestHeader set X-Forwarded-Proto "https"
 

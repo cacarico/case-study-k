@@ -1,23 +1,15 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: {{ include "web-server.fullname" . }}-dr
+  name: {{ include "web-server.fullname" . }}
   labels:
     {{- include "web-server.labels" . | nindent 4 }}
   namespace: {{ .Release.Namespace }}
 spec:
   host: web-server
-  trafficPolicy:
-    connectionPool:
-      http:
-        http1MaxPendingRequests: 100
-        http2MaxRequests: 100
-        idleTimeout: 15s
-    loadBalancer:
-      simple: RANDOM
   subsets:
     - name: v1
       labels:
         app: web-server
-        version: {{ .Chart.AppVersion }}
+        version: "{{ .Chart.AppVersion }}"
 

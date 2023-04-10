@@ -4,6 +4,7 @@
 
 replicaCount: 1
 
+dns: "k8s.case-study.internal"
 image:
   pullPolicy: IfNotPresent
   repository: nginx
