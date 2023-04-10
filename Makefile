@@ -1,5 +1,10 @@
 # Makefile for the Case Study K
 #
+#
+
+NAMESPACE ?= default
+DEPLOYMENT_NAME ?= web-server-test
+
 terraform-deploy:
 	@scripts/deploy-terraform.sh
 
@@ -15,7 +20,7 @@ cleanup: ## Cleans the target
 	@find . -name '.terraform*' -type f -delete
 
 deploy: ## Deploy the web-server Helm Chart
-	@helm upgrade web-server-test helm/web/
+	@scripts/deploy.py $(NAMESPACE) $(DEPLOYMENT_NAME)
 
 k-start: ## Start minikube cluster
 	@minikube start --memory=16384 --cpus=4
