@@ -19,7 +19,7 @@ deployment_version = subprocess.check_output(
 print(f'Deployment version: {deployment_version}')
 
 # Read the Chart.yaml file
-with open('helm/web/Chart.yaml', 'r') as f:
+with open('Chart.yaml', 'r') as f:
     chart_data = yaml.safe_load(f)
 
 # Get the chart version

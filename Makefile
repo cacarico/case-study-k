@@ -9,7 +9,7 @@ terraform-deploy:
 	@scripts/deploy-terraform.sh
 
 package: ## Create a Helm Chart package for the web-server
-	@helm package helm/web/ -d target/
+	@helm package . -d target/
 
 vagrant: 
 	@vagrant up
