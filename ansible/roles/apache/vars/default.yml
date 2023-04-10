@@ -1,0 +1,13 @@
+---
+cert_path: /etc/httpd/certs/www.case-study.internal.crt
+key_path: /etc/httpd/certs/www.case-study.internal.key
+key_passphrase: averysecurepassword
+cert_owner: root
+cert_group: root
+cert_mode: "0600"
+subject:
+country: DE
+state: Berlin
+locality: Berlin
+organization: CaseK
+common_name: www.case-study.internal

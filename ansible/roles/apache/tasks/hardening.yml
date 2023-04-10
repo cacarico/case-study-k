@@ -1,0 +1,14 @@
+---
+  - name: Set SELinux policy to enforcing
+    selinux:
+      policy: targeted
+      state: enforcing
+
+  - name: Allow Apache to make network connections on SELinux
+    become: true
+    seboolean:
+      name: httpd_can_network_connect
+      state: yes
+      persistent: yes
+    notify: restart apache
+
