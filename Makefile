@@ -3,7 +3,7 @@
 #
 
 NAMESPACE ?= default
-DEPLOYMENT_NAME ?= web-server-test
+DEPLOYMENT_NAME ?= web-server
 
 terraform-deploy:
 	@scripts/deploy-terraform.sh

@@ -19,7 +19,7 @@ deployment_version = subprocess.check_output(
 print(f'Deployment version: {deployment_version}')
 
 # Read the Chart.yaml file
-with open('Chart.yaml', 'r') as f:
+with open('chart/Chart.yaml', 'r') as f:
     chart_data = yaml.safe_load(f)
 
 # Get the chart version
@@ -32,4 +32,4 @@ if deployment_version == chart_version:
 else:
     print(f'Deploying web-server version: {chart_version}')
     # Run the Helm upgrade command to deploy the new version
-    subprocess.run(['helm', 'upgrade', deployment_name, './helm/web', '--namespace', namespace])
+    subprocess.run(['helm', 'upgrade', deployment_name, './chart', '--namespace', namespace])
