@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ include "web-server.fullname" . }}
+  labels:
+    {{- include "web-server.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - {{ include "web-server.fullname" . }}
+  http:
+    - match:
+        - uri:
+            prefix: "/web"
+      route:
+        - destination:
+            host: web-server
+            port:
+              number: 80
+
