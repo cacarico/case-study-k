@@ -12,3 +12,23 @@
       persistent: yes
     notify: restart apache
 
+  - name: Ensure firewalld is running
+    service:
+      name: firewalld
+      state: started
+      enabled: yes
+
+  - name: Allow HTTP
+    firewalld:
+      service: http
+      permanent: yes
+      immediate: yes
+      state: enabled
+
+  - name: Allow HTTPS
+    firewalld:
+      service: https
+      permanent: yes
+      immediate: yes
+      state: enabled
+
