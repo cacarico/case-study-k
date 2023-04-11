@@ -8,6 +8,8 @@ function apply_peer_auth() {
   kubectl apply -f istio/peerauthentication.yaml
 }
 
+kubectl label namespace default istio-injection=enabled --overwrite 
+
 # Check if an argument was provided
 if [ $# -eq 0 ]; then
   echo "No argument provided. Usage: $0 [istio|peer_auth|all]"

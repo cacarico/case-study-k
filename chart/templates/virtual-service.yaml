@@ -20,4 +20,13 @@ spec:
             port:
               number: 80
             subset: v1
+      timeout: 15s
+      retries:
+        attempts: 3
+        perTryTimeout: 5s
+      fault:
+        delay:
+          percent: 100
+          fixedDelay: 5s
+
 

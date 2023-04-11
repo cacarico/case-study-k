@@ -50,6 +50,7 @@ To work with Case Study K, the following software is required:
 * helm
 * istioctl
 * vagrant
+* auto-commit (optional)
 
 
 ## Getting Started
@@ -98,6 +99,8 @@ version: "0.0.1"
 ## Terraform
 
 With terraform we can deploy the virtual machine and create the cloud storage bucket to keep the state file for terraform.
+
+The documentation for the terraform is auto generated with the help of auto-commit 
 
 
 ## Testing
