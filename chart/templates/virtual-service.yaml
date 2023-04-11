@@ -24,9 +24,5 @@ spec:
       retries:
         attempts: 3
         perTryTimeout: 5s
-      fault:
-        delay:
-          percent: 100
-          fixedDelay: 5s
 
 

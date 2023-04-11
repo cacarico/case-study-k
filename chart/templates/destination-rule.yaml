@@ -12,7 +12,7 @@ spec:
       tcp:
         maxConnections: 100
       http:
-        idleTimeout: 15m
+        idleTimeout: 15s
   subsets:
     - name: v1
       labels:

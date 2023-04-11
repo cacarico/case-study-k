@@ -45,13 +45,12 @@ Here you will also find the Helm Charts used to deploy the web-server and also t
 
 To work with Case Study K, the following software is required:
 
-* kubectl
-* terraform
-* helm
-* istioctl
-* vagrant
-* auto-commit (optional)
-
+* [kubectl](https://github.com/kubernetes/kubectl)
+* [terraform](https://github.com/hashicorp/terraform)
+* [helm](https://github.com/helm/Helm)
+* [istioctl](https://github.com/istio/istio)
+* [vagrant](https://github.com/hashicorp/vagrant)
+* [pre-commit](https://github.com/pre-commit/pre-commit) (optional)
 
 ## Getting Started
 
@@ -100,8 +99,41 @@ version: "0.0.1"
 
 With terraform we can deploy the virtual machine and create the cloud storage bucket to keep the state file for terraform.
 
-The documentation for the terraform is auto generated with the help of auto-commit 
+The documentation for the terraform is auto generated with the help of pre-commit.
+Pre-commit will also 
 
+## Security 
+Both the Kubernetes and virtual machine environments have been fortified with several security measures. 
+We have configured firewall rules to only allow ports 80 and 443, thereby limiting access to only necessary services.
+Additionally, we have implemented SeLinux to enable Apache, thus providing a more secure environment for our web server.
+Meaures agains slowloris attack was added both in the k8s and the virtal machine.
+
+In order to prevent slowloris attacks, we have put in place comprehensive measures both in Kubernetes and the virtual machine
+
+For the virtual-machine we added:
+
+```
+SSLSessionTickets off
+SSLSessionCacheTimeout 300
+LimitRequestBody 1048576
+LimitRequestFields 100
+LimitRequestFieldSize 8190
+LimitRequestLine 8190
+Timeout 15
+KeepAliveTimeout 15
+SSLStaplingCache "shmcb:logs/stapling-cache(150000)"
+SSLUseStapling On
+```
+
+Now on the Istio side we have:
+```
+maxConnections: 100
+idleTimeout: 15s
+timeout: 15s
+  retries:
+  attempts: 3
+  perTryTimeout: 5s
+```
 
 ## Testing
 
