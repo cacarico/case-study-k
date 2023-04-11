@@ -7,6 +7,12 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   host: web-server
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 100
+      http:
+        idleTimeout: 15m
   subsets:
     - name: v1
       labels:
