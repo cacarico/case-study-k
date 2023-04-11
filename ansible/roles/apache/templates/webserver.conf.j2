@@ -17,10 +17,10 @@
   ServerName www.case-study.internal
 
   ProxyPreserveHost On
-  ProxyPass / https://k8s.case-study.internal/ retry=0
-  ProxyPassReverse / https://k8s.case-study.internal/
+  ProxyPass / https://{{ kubernetes_endpoint }}/ retry=0
+  ProxyPassReverse / https://{{ kubernetes_endpoint }}/
 
-  RequestHeader set Host "k8s.case-study.internal"
+  RequestHeader set Host "{{ kubernetes_endpoint }}"
   RequestHeader set X-Forwarded-For %{REMOTE_ADDR}s
   RequestHeader set X-Forwarded-Proto "https"
 

@@ -22,12 +22,12 @@ resource "google_compute_instance" "default" {
     }
   }
 
-    // Apply the firewall rule to allow external IPs to access this instance
-    tags = ["apache", "ssh"]
+  // Apply the firewall rule to allow external IPs to access this instance
+  tags = ["apache", "ssh"]
 }
 
 resource "google_compute_firewall" "apache" {
-  name    = format("%s-firewall", var.name )
+  name    = format("%s-firewall", var.name)
   network = var.network
 
   allow {
@@ -41,7 +41,7 @@ resource "google_compute_firewall" "apache" {
 }
 
 resource "google_compute_firewall" "ssh" {
-  name    = format("%s-ssh", var.name )
+  name    = format("%s-ssh", var.name)
   network = var.network
 
   allow {

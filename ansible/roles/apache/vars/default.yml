@@ -11,3 +11,4 @@ state: Berlin
 locality: Berlin
 organization: CaseK
 common_name: www.case-study.internal
+kubernetes_endpoint: k8s.case-study.internal

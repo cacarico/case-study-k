@@ -7,10 +7,8 @@ openssl req -newkey rsa:4096 \
             -nodes \
             -out certs/www.case-study.internal.crt \
             -keyout certs/www.case-study.internal.key \
-            -subj "/C=DE/ST=Berlin/L=Berlin/O=k/OU=platform-team/CN=www.case-study.internal"
+            -subj "/C=DE/ST=Berlin/L=Berlin/O=k/OU=platform-team/CN=k8s.case-study.internal"
 
 kubectl create secret tls web-server-credential \
-  --key=certs/www.case-study.internal.key \
-  --cert=certs/www.case-study.internal.crt
-
-
+  --key=certs/k8s.case-study.internal.key \
+  --cert=certs/k8s.case-study.internal.crt
