@@ -7,9 +7,6 @@ DEPLOYMENT_NAME ?= web-server
 
 local-install: k-start vagrant istio deploy ## Deploy the project locally
 
-terraform-deploy:
-	@scripts/deploy-terraform.sh
-
 package: ## Create a Helm Chart package for the web-server
 	@helm package . -d target/
 
@@ -25,7 +22,7 @@ k-start: ## Start minikube cluster
 istio: ## Deploy and update Istio
 	@scripts/istio.sh all
 
-cleanup: ## Cleans the target 
+cleanup: ## Cleans all local generated files
 	@rm -f target/*
 	@vagrant destroy --force
 	@find . -name '.terraform*' -type f -delete
