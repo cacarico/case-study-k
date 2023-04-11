@@ -16,7 +16,7 @@ vagrant:
 
 cleanup: ## Cleans the target 
 	@rm -f target/*
-	@vagrant destroy --force
+	# @vagrant destroy --force
 	@find . -name '.terraform*' -type f -delete
 
 deploy: ## Deploy the web-server Helm Chart
@@ -26,7 +26,7 @@ k-start: ## Start minikube cluster
 	@minikube start --memory=16384 --cpus=4
 
 istio: ## Deploy and update Istio
-	@istioctl install -f istio-operator.yaml -y
+	@scripts/istio.sh all
 
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)

@@ -12,11 +12,17 @@ if len(sys.argv) < 3:
 namespace = sys.argv[1]
 deployment_name = sys.argv[2]
 
+deployment_version = ""
+
 # Get the version of the deployed application
-deployment_version = subprocess.check_output(
-    f'kubectl get deployment {deployment_name} -o=jsonpath="{{.metadata.labels.app\.kubernetes\.io\/version}}"',
-    shell=True, text=True).strip()
-print(f'Deployment version: {deployment_version}')
+try:
+    deployment_version = subprocess.check_output(
+        f'kubectl get deployment {deployment_name} -o=jsonpath="{{.metadata.labels.app\.kubernetes\.io\/version}}"',
+        shell=True, text=True).strip()
+    print(f'Deployment version: {deployment_version}')
+except subprocess.CalledProcessError as e:
+    subprocess.run(['helm', 'install', 'web-server', 'chart/'])
+
 
 # Read the Chart.yaml file
 with open('chart/Chart.yaml', 'r') as f:
