@@ -13,6 +13,8 @@ spec:
   template:
     metadata:
       labels:
+        app: {{ include "web-server.name" . }}
+        version: {{ .Chart.AppVersion | quote }}
         {{- include "web-server.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}

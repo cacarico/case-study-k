@@ -5,6 +5,8 @@
 NAMESPACE ?= default
 DEPLOYMENT_NAME ?= web-server
 
+local-install: k-start vagrant istio deploy ## Deploy the project locally
+
 terraform-deploy:
 	@scripts/deploy-terraform.sh
 
@@ -13,11 +15,6 @@ package: ## Create a Helm Chart package for the web-server
 
 vagrant: 
 	@vagrant up
-
-cleanup: ## Cleans the target 
-	@rm -f target/*
-	# @vagrant destroy --force
-	@find . -name '.terraform*' -type f -delete
 
 deploy: ## Deploy the web-server Helm Chart
 	@scripts/deploy.py $(NAMESPACE) $(DEPLOYMENT_NAME)
@@ -28,9 +25,15 @@ k-start: ## Start minikube cluster
 istio: ## Deploy and update Istio
 	@scripts/istio.sh all
 
+cleanup: ## Cleans the target 
+	@rm -f target/*
+	@vagrant destroy --force
+	@find . -name '.terraform*' -type f -delete
+	@minikube delete
+
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-.PHONY: terraform-deploy package vagrant cleanup deploy k-start istio help 
+.PHONY: terraform-deploy package vagrant cleanup deploy k-start istio local-install help 
 
 .DEFAULT_GOAL := help

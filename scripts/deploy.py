@@ -22,6 +22,7 @@ try:
     print(f'Deployment version: {deployment_version}')
 except subprocess.CalledProcessError as e:
     subprocess.run(['helm', 'install', 'web-server', 'chart/'])
+    sys.exit(0)
 
 
 # Read the Chart.yaml file
@@ -35,8 +36,6 @@ print(f'Chart version: {chart_version}')
 # Check if the version matches the one in the Helm chart
 if deployment_version == chart_version:
     print('The deployment is already running the latest version.')
-    #TODO remove th
-    subprocess.run(['helm', 'upgrade', deployment_name, './chart', '--namespace', namespace, '--atomic', '--install'])
 else:
     print(f'Deploying web-server version: {chart_version}')
     # Run the Helm upgrade command to deploy the new version

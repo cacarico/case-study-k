@@ -31,17 +31,17 @@ Common labels
 helm.sh/chart: {{ include "web-server.chart" . }}
 {{ include "web-server.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
-version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: {{ .Values.Component | default "frontend"}}
+app.kubernetes.io/part-of: {{ .Values.Component | default "web"}}
 {{- end -}}
 
 {{/*
 Selector labels
 */}}
 {{- define "web-server.selectorLabels" -}}
-app: {{ include "web-server.name" . }}
 app.kubernetes.io/name: {{ include "web-server.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
