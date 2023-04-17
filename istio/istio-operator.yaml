@@ -9,6 +9,9 @@ spec:
     accessLogFile: /dev/stdout
   components:
     ingressGateways:
+    - name: istio-ingressgateway
+      namespace: istio-system
+      enabled: false
     - name: istio-public-ingressgateway
       namespace: istio-system
       enabled: true
