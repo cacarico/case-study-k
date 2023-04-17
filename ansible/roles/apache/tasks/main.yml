@@ -30,42 +30,6 @@
       - python2-cryptography
       - mod_ssl
 
-## Certificates for Apache
-  - name: Create certs dir
-    file:
-      path: /etc/httpd/certs
-      state: directory
-      owner: root
-      group: root
-      mode: '0700'
-
-  - name: Generate private key
-    openssl_privatekey:
-      path: "{{ key_path }}"
-      size: 2048
-    register: key
-
-  - name: Generate certificate
-    openssl_certificate:
-      path: "{{ cert_path }}"
-      privatekey_path: "{{ key_path }}"
-      # privatekey_passphrase: "{{ key_passphrase }}"
-      provider: selfsigned
-      selfsigned_not_after: "+3650d"
-      selfsigned_create_subject_key_identifier: create_if_not_provided
-      selfsigned_digest: sha256
-      state: present
-
-  - name: Set certificate permissions
-    file:
-      path: "{{ item }}"
-      owner: "{{ cert_owner }}"
-      group: "{{ cert_group }}"
-      mode: "{{ cert_mode }}"
-    loop:
-      - "{{ cert_path }}"
-      - "{{ key_path }}"
-
   - name: Copy httpf.conf
     template:
       src: httpd.conf.j2
@@ -77,9 +41,12 @@
       src: webserver.conf.j2
       dest: /etc/httpd/conf.d/webserver.conf
     tags: httpd
+    notify: reload apache
 
   - name: Ensure Apache has selected state and enabled on boot
     service:
       name: httpd
       state: started
       enabled: yes
+
+

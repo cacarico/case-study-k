@@ -25,7 +25,7 @@ istio: ## Deploy and update Istio
 cleanup: ## Cleans all local generated files
 	@rm -f target/*
 	@vagrant destroy --force
-	@find . -name '.terraform*' -type f -delete
+	@find . -name '.terraform*' -exec rm -rf {} +
 	@minikube delete
 
 help: ## This help.

@@ -17,8 +17,8 @@
   ServerName www.case-study.internal
 
   ProxyPreserveHost On
-  ProxyPass / https://{{ kubernetes_endpoint }}/ retry=0
-  ProxyPassReverse / https://{{ kubernetes_endpoint }}/
+  ProxyPass / http://{{ kubernetes_endpoint }}/ retry=0
+  ProxyPassReverse / http://{{ kubernetes_endpoint }}/
 
   RequestHeader set Host "{{ kubernetes_endpoint }}"
   RequestHeader set X-Forwarded-For %{REMOTE_ADDR}s
@@ -26,7 +26,6 @@
 
 
   # Defense against Slowloris attacks
-  SSLSessionTickets off
   SSLSessionCacheTimeout 300
   LimitRequestBody 1048576
   LimitRequestFields 100
@@ -36,11 +35,11 @@
   Timeout 15
   KeepAliveTimeout 15
 
-  # Example SSL configuration
+  # SSL configuration
   SSLEngine on
-  SSLProtocol all -SSLv2
+ # SSLProtocol all -SSLv2
   SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5
-  SSLCertificateFile "/etc/httpd/certs/www.case-study.internal.crt"
+  SSLCertificateFile "/etc/httpd/certs/www.case-study.internal.pem"
   SSLCertificateKeyFile "/etc/httpd/certs/www.case-study.internal.key"
 
   # Log Files

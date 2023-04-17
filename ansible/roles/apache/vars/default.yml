@@ -1,6 +1,7 @@
 ---
 cert_path: /etc/httpd/certs/www.case-study.internal.crt
 key_path: /etc/httpd/certs/www.case-study.internal.key
+pem_path: /etc/httpd/certs/www.case-study.internal.pem
 key_passphrase: averysecurepassword
 cert_owner: root
 cert_group: root

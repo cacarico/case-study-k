@@ -5,6 +5,7 @@
     - vars/default.yml
   tasks:
     - import_tasks: tasks/main.yml
+    - import_tasks: tasks/certificates.yml
     - import_tasks: tasks/hardening.yml
   
   handlers:

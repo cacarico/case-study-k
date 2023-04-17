@@ -1,0 +1,38 @@
+---
+  - name: Create certs dir
+    file:
+      path: /etc/httpd/certs
+      state: directory
+      owner: root
+      group: root
+      mode: '0700'
+
+  - name: Generate private key
+    openssl_privatekey:
+      path: "{{ key_path }}"
+      size: 4096
+
+  - name: Create certificate signing request (CSR) for self-signed certificate
+    community.crypto.openssl_csr_pipe:
+      privatekey_path: "{{ key_path }}"
+      common_name: "{{ common_name }}"
+      organization_name: "{{ organization }}"
+    register: csr
+
+  - name: Create self-signed certificate from CSR
+    community.crypto.x509_certificate:
+      path: "{{ pem_path }}"
+      csr_content: "{{ csr.csr }}"
+      privatekey_path: "{{ key_path }}"
+      provider: selfsigned
+
+  - name: Set certificate permissions
+    file:
+      path: "{{ item }}"
+      owner: "{{ cert_owner }}"
+      group: "{{ cert_group }}"
+      mode: "{{ cert_mode }}"
+    loop:
+      - "{{ key_path }}"
+      - "{{ pem_path }}"
+
